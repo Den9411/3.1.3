@@ -16,7 +16,7 @@
         <div class="col-md-12">
             <nav class="navbar navbar-light bg-light static-top  navbar-dark bg-dark">
                 <h3 class="text-white" th:text="${user.getEmail} + ' with roles: ' + ${user.getRoles}"></h3>
-<!--                <a class="navbar-brand col-sm-3 col-md-2 mr-0" >username with roles</a>-->
+                <!--                <a class="navbar-brand col-sm-3 col-md-2 mr-0" >username with roles</a>-->
                 <ul class="navbar-nav px-3">
                     <li class="nav-item text-nowrap float-sm-right">
                         <a class="nav-link" th:method="GET" th:href="@{logout}">Logout</a>
@@ -43,34 +43,34 @@
                             <h3 class="text-left">
                                 About user
                             </h3>
-                    <table class="table table-striped table-sm">
-                        <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">First name</th>
-                            <th scope="col">Last name</th>
-                            <th scope="col">Age</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Role</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">First name</th>
+                                    <th scope="col">Last name</th>
+                                    <th scope="col">Age</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Role</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                            <td th:utext="${user.getId()}">...</td>
-                            <td th:utext="${user.getName()}">...</td>
-                            <td th:utext="${user.getLastName()}">...</td>
-                            <td th:utext="${user.getAge()}">...</td>
-                            <td th:utext="${user.getEmail()}">...</td>
-                            <td th:utext="${user.getRoles()}">...</td>
+                                <td th:utext="${user.getId()}">...</td>
+                                <td th:utext="${user.getName()}">...</td>
+                                <td th:utext="${user.getLastName()}">...</td>
+                                <td th:utext="${user.getAge()}">...</td>
+                                <td th:utext="${user.getEmail()}">...</td>
+                                <td th:utext="${user.getRoles()}">...</td>
 
-                        </tbody>
-                    </table>
-                </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->

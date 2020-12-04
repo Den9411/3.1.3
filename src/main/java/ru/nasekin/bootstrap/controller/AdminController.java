@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.nasekin.bootstrap.model.Role;
 import ru.nasekin.bootstrap.model.User;
-import ru.nasekin.bootstrap.repository.RoleRepository;
 import ru.nasekin.bootstrap.service.RoleService;
 import ru.nasekin.bootstrap.service.UserService;
 
@@ -38,12 +37,12 @@ public class AdminController {
         model.addAttribute("admin", userService.findByUsername(name));
         List<User> users = userService.findAll();
         model.addAttribute("users", users);
-        return "admin";
+        return "NewAdmin";
     }
 
 
     @PostMapping
-    public String createUser(User user, @RequestParam("role") String[] roles){
+    public String createUser(User user, @RequestParam(value ="role", required = false) String[] roles){
         Long id = user.getId();
         if (id==null) {
             for (String role : roles) {
