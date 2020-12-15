@@ -2,11 +2,7 @@ package ru.nasekin.bootstrap.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.nasekin.bootstrap.model.Role;
 import ru.nasekin.bootstrap.model.User;
 import ru.nasekin.bootstrap.service.RoleService;
 import ru.nasekin.bootstrap.service.UserService;
@@ -14,8 +10,8 @@ import ru.nasekin.bootstrap.service.UserService;
 import java.util.*;
 
 
-@Controller
-@RequestMapping("/admin")
+@RestController
+@RequestMapping("/api")
 public class AdminController {
 
     private UserService userService;
@@ -31,62 +27,33 @@ public class AdminController {
         this.roleService = roleService;
     }
 
-    @GetMapping
-    public String findAll(Model model) {
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addAttribute("admin", userService.findByUsername(name));
+    @GetMapping("/users")
+    public List<User> findAll() {
         List<User> users = userService.findAll();
-        model.addAttribute("users", users);
-        return "NewAdmin";
+        return users;
+    }
+
+    @GetMapping("/users/{id}")
+    public User one(@PathVariable(name = "id") Long id) {
+        return userService.findById(id);
     }
 
 
-    @PostMapping
-    public String createUser(User user, @RequestParam(value ="role", required = false) String[] roles){
-        Long id = user.getId();
-        if (id==null) {
-            for (String role : roles) {
-                if (role.toLowerCase().contains("admin")) {
-//                user.setRoles(Set.of(new Role(2L, "ROLE_ADMIN", Set.of(user))));
-                    user.setRoles(Set.of(roleService.findByRole("ROLE_ADMIN")));
-                }
-                if (role.toLowerCase().contains("user")) {
-                    user.setRoles(Set.of(roleService.findByRole("ROLE_USER")));
-                }
-            }
-        } else {
-            Set<Role> userRoles = userService.findById(id).getRoles();
-            if (userRoles.size()!=2) {
-                for (String role : roles) {
-                    if (role.toLowerCase().contains("admin")) {
-                        userRoles.add(roleService.findByRole("ROLE_ADMIN"));
-                        user.setRoles(userRoles);
-                    }
-                    if (role.toLowerCase().contains("user")) {
-                        userRoles.add(roleService.findByRole("ROLE_USER"));
-                        user.setRoles(userRoles);
-                    }
-                }
-            } else {
-                for (String role : roles) {
-                    if (role.toLowerCase().contains("admin")) {
-//                user.setRoles(Set.of(new Role(2L, "ROLE_ADMIN", Set.of(user))));
-                        user.setRoles(Set.of(roleService.findByRole("ROLE_ADMIN")));
-                    }
-                    if (role.toLowerCase().contains("user")) {
-                        user.setRoles(Set.of(roleService.findByRole("ROLE_USER")));
-                    }
-                }
-            }
-        }
-        userService.saveUser(user);
-        return "redirect:/admin";
+    @PostMapping("/users")
+    public User createUser(@RequestBody User user) {
+        return userService.saveUser(user);
     }
 
 
-    @PostMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id){
+    @PutMapping("/users")
+    public User updateUser(@RequestBody User user) {
+        return userService.saveUser(user);
+    }
+
+
+    @DeleteMapping("users/{id}")
+    public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteById(id);
-        return "redirect:/admin";
+        return "User with ID = " + id + " was deleted";
     }
 }

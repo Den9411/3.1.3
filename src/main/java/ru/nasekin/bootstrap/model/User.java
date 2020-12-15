@@ -1,5 +1,6 @@
 package ru.nasekin.bootstrap.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,6 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "users")
 public class User implements UserDetails {
 
@@ -31,7 +33,8 @@ public class User implements UserDetails {
     @Column
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER) //добавил fetch и больше нет ошибки org.hibernate.LazyInitializationException
+    @ManyToMany/*(fetch = FetchType.EAGER)*/ //добавил fetch и больше нет ошибки org.hibernate.LazyInitializationException
+
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(

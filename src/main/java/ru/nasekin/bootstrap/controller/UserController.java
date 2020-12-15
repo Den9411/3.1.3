@@ -49,5 +49,11 @@ public class UserController {
         model.addAttribute("user", userService.findByUsername(name));
         return "user";
     }
+    @GetMapping("/admin")
+    public String showAdmin( Model model) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("admin", userService.findByUsername(name));
+        return "NewAdmin";
+    }
 
 }

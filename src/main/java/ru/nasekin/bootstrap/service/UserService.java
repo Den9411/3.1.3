@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
@@ -37,7 +38,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User saveUser(User user){
-        return userRepository.save(user);
+         return userRepository.save(user);
     }
 
     public void deleteById(Long id){
@@ -60,7 +61,7 @@ public class UserService implements UserDetailsService {
 
 
     @Override
-    @Transactional
+//    @Transactional
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 //        User user = findByUsername(s);
         User user = findByEmail(s);
