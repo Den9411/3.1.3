@@ -89,7 +89,7 @@ async function editFunc(id){
 
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-outline pull-left CLOSE" data-dismiss="edit-modal">Close</button>
+                                                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
                                                     <button  type="submit" class="btn btn-primary btn-lg edit-btn">
                                                         Edit
                                                     </button>
@@ -99,9 +99,6 @@ async function editFunc(id){
                                     </form>`
 
     document.querySelector('.edit-btn').addEventListener('click', ()=>{
-                const headers = {
-            'Content-Type': 'application/json'
-        }
 
         const check= (string, elemName) => {
             if (!string.length) {
@@ -117,27 +114,51 @@ async function editFunc(id){
             age: check(document.getElementById('ageEdit').value, 'age'),
             email: check(document.getElementById('emailEdit').value, 'email'),
             password: check(document.getElementById('passwordEdit').value, 'password'),
-            roles: [getRole()]
+            roles: getRole()
         }
 
         function getRole() {
+            // let userRole = `${content.roles.map((role) => role.role)}`
+            let userRole = `${content.roles}`
+
+            // alert(!userRole)
             let role = document.getElementById('roleEdit').value
-            if (role === 'USER') {
-                return {
-                    id: 2,
-                    role: 'ROLE_USER',
-                    users: [],
-                    authority: 'ROLE_USER'
+            if (!userRole) {
+                if (role === 'USER') {
+                    return [{
+                        id: 2,
+                        role: 'ROLE_USER',
+                        users: [],
+                        authority: 'ROLE_USER'
+                    }]
                 }
-            }
-            if (role === 'ADMIN') {
-                return {
-                    id: 1,
-                    role: 'ROLE_ADMIN',
-                    users: [],
-                    authority: 'ROLE_ADMIN'
+                if (role === 'ADMIN') {
+                    return [{
+                        id: 1,
+                        role: 'ROLE_ADMIN',
+                        users: [],
+                        authority: 'ROLE_ADMIN'
+                    }]
                 }
-            }
+            } else {
+
+                    return [{
+                        id: 2,
+                        role: 'ROLE_USER',
+                        users: [],
+                        authority: 'ROLE_USER'
+                    },
+                 {
+                        id: 1,
+                        role: 'ROLE_ADMIN',
+                        users: [],
+                        authority: 'ROLE_ADMIN'
+                    }]
+                }
+        }
+
+        const headers = {
+            'Content-Type': 'application/json'
         }
 
         return fetch('/api/users', {
