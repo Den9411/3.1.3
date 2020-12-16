@@ -89,7 +89,7 @@ async function editFunc(id){
 
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-outline pull-left CLOSE" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-outline pull-left CLOSE" data-dismiss="edit-modal">Close</button>
                                                     <button  type="submit" class="btn btn-primary btn-lg edit-btn">
                                                         Edit
                                                     </button>
@@ -98,16 +98,8 @@ async function editFunc(id){
                                         </div>
                                     </form>`
 
-
-
     document.querySelector('.edit-btn').addEventListener('click', ()=>{
-
-        // fetch(URL + id, {method: "PUT"}).then(() => {
-        //     modal.innerHTML = ''
-        //     modal.setAttribute('style', 'display: none;')
-        //     modal.classList.remove('show')
-        // editUser('/api/users', 'PUT')
-        const headers = {
+                const headers = {
             'Content-Type': 'application/json'
         }
 
@@ -127,8 +119,6 @@ async function editFunc(id){
             password: check(document.getElementById('passwordEdit').value, 'password'),
             roles: [getRole()]
         }
-
-
 
         function getRole() {
             let role = document.getElementById('roleEdit').value
@@ -150,8 +140,6 @@ async function editFunc(id){
             }
         }
 
-
-
         return fetch('/api/users', {
             method: 'PUT',
             body: JSON.stringify(body),
@@ -160,12 +148,6 @@ async function editFunc(id){
             getResponse()
             return response.json()
         })
-
-    })
-
-    document.querySelector('.CLOSE').addEventListener('click', ()=>{
-
-        $('#edit-modal').close;
     })
 }
 

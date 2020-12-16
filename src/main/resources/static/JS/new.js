@@ -1,37 +1,31 @@
 
 
 function newUser() {
-    const headers = {
-        'Content-Type': 'application/json'
-    }
-
-
-
-    // let body = {
-    //     id: 0,
-    //     username: document.getElementById('name').value,
-    //     lastName: document.getElementById('lastName').value,
-    //     age: document.getElementById('age').value,
-    //     email: document.getElementById('email').value,
-    //     password: document.getElementById('password').value,
-    //     roles: getRole()
-    // }
 
     let body = {
-        username: 'newUser',
-        lastName: 'NewUser',
-        age: 12,
-        email: 'NewUser@mail.ru',
-        password: 100,
-        roles: [
-            {
-                id: 1,
-                role: 'ROLE_ADMIN',
-                users: [],
-                authority: 'ROLE_ADMIN'
-            }
-        ]
+        username: document.getElementById('username').value,
+        lastName: document.getElementById('lastName').value,
+        age: document.getElementById('age').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        roles: [getRole()]
     }
+
+    // let body = {
+    //     username: 'newUser',
+    //     lastName: 'NewUser',
+    //     age: 12,
+    //     email: 'NewUser@mail.ru',
+    //     password: 100,
+    //     roles: [
+    //         {
+    //             id: 1,
+    //             role: 'ROLE_ADMIN',
+    //             users: [],
+    //             authority: 'ROLE_ADMIN'
+    //         }
+    //     ]
+    // }
 
     function getRole() {
         let role = document.getElementById('role').value
@@ -53,13 +47,17 @@ function newUser() {
         }
     }
 
-    getResponse()
+    const headers = {
+        'Content-Type': 'application/json'
+    }
 
-    return fetch('/api/users', {
+    return fetch('http://localhost:8080/api/users', {
         method: 'POST',
         body: JSON.stringify(body),
         headers: headers
     }).then(response => {
+        console.log(response)
+        getResponse()
         return response.json()
     })
 }

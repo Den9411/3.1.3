@@ -107,11 +107,11 @@
                                     </div>
                                     <div class="col - 4">
                                         <!--Add new user-->
-                                        <form id="newUser">
+                                        <form id="newUser" onsubmit="newUser()">
 
                                             <div class="form-group">
-                                                <label for="name" class="col control-label text-center font-weight-bold">First name</label>
-                                                <input type="text" class="form-control bg-warning" id="name" name="username" required>
+                                                <label for="username" class="col control-label text-center font-weight-bold">First name</label>
+                                                <input type="text" class="form-control bg-warning" id="username" name="username" required>
                                             </div>
 
                                             <div class="form-group">
@@ -147,7 +147,7 @@
                                             </div>
 
                                             <!--roles-->
-                                            <button  type="submit" class="btn btn-success btn-lg" onclick="newUser()">
+                                            <button  type="submit" class="btn btn-success btn-lg" >
                                                 Add new user
                                             </button>
                                         </form>
