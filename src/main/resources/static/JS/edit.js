@@ -89,7 +89,7 @@ async function editFunc(id){
 
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-outline pull-left closeModal" data-dismiss="modal">Close</button>
                                                     <button  type="submit" class="btn btn-primary btn-lg edit-btn">
                                                         Edit
                                                     </button>
@@ -97,6 +97,15 @@ async function editFunc(id){
                                             </div>
                                         </div>
                                     </form>`
+
+    let myModal = document.getElementById("edit-modal")
+    let btn = document.getElementsByClassName("closeModal")[0]
+    btn.onclick = function () {
+        modal.innerHTML = ''
+        myModal.remove()
+        document.getElementsByClassName("modal-backdrop")[0].remove()
+
+    }
 
     document.querySelector('.edit-btn').addEventListener('click', ()=>{
 
@@ -121,9 +130,10 @@ async function editFunc(id){
             // let userRole = `${content.roles.map((role) => role.role)}`
             let userRole = `${content.roles}`
 
-            // alert(!userRole)
+            alert(userRole)
+            alert(userRole.length === 31)
             let role = document.getElementById('roleEdit').value
-            if (!userRole) {
+            if (!userRole || userRole.length === 31) {
                 if (role === 'USER') {
                     return [{
                         id: 2,
@@ -157,6 +167,8 @@ async function editFunc(id){
                 }
         }
 
+
+
         const headers = {
             'Content-Type': 'application/json'
         }
@@ -171,4 +183,6 @@ async function editFunc(id){
         })
     })
 }
+
+
 
